@@ -21,17 +21,18 @@ public class BBV2 extends JPanel {
         } else if (y + angley > getHeight() - 50) {
             angley = -1;
         }
-        x= x + anglex;
-        y = y+angley;
+        x = x + anglex;
+        y = y + angley;
 
     }
+
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paint(g);
-        g.fillOval(x,y,50,50);  //size of ball
+        g.fillOval(x, y, 50, 50);  //size of ball
     }
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         JFrame frame = new JFrame("Bouncing Ball!");
         BBV2 BouncingBallz = new BBV2();
         frame.add(BouncingBallz);
@@ -39,10 +40,10 @@ public class BBV2 extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        while (true){
+        while (true) {
             BouncingBallz.move();
             BouncingBallz.repaint();
-            Thread.sleep(5); // speed of ball movement
+            Thread.sleep(3); // speed of ball movement
         }
     }
 
