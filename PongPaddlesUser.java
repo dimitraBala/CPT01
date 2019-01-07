@@ -1,5 +1,3 @@
-package CompSciCPT;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +15,7 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
     // variables for paddle
     Timer t = new Timer(5, this);
     double x = 0, y = 0, vely = 0;
+    private int checkValue = 0;
 
     public PongPaddlesUser() {
         t.start();
@@ -42,21 +41,27 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
         y += vely;    //y-value changes depending on if paddle hits edge of panel
     }
 
-    public void up() {
-        vely = -1.5; // y-value decreases if player wants paddle to go up
+    public void up(int checkValue) {
+        if (checkValue == 1)
+            vely = -1.5 * 2;    //this doubles the speed of the paddle going up
+        else
+            vely = -1.5; // y-value decreases if player wants paddle to go up
     }
 
-    public void down() {
-        vely = 1.5;// y-value increases if player wants paddle to go up
+    public void down(int checkValue) {
+        if (checkValue == 1)
+            vely = 1.5 * 2; //this doubles the speed of the paddle going down
+        else
+            vely = 1.5; // y-value decreases if player wants paddle to go up
     }
 
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_UP) {    //when player presses up arrow key
-            up();       //calls up method
+            up(1);       //calls up method
         }
         if (code == KeyEvent.VK_DOWN) {  //when player presses down arrow key
-            down();     //calls down method
+            down(1);     //calls down method
         }
     }
 
