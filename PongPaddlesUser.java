@@ -26,8 +26,10 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
-        g2.fill(new Rectangle.Double(x, y, 30, 100));   //creating graphic for paddle
+        Graphics2D paddle1 = (Graphics2D) g;
+        Graphics2D paddle2 = (Graphics2D) g;
+        paddle1.fill(new Rectangle.Double(40, y, 30, 100));   //creating graphic for paddle
+        paddle2.fill(new Rectangle.Double(x, y, 30, 100));
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -57,10 +59,10 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
 
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if (code == KeyEvent.VK_UP) {    //when player presses up arrow key
+        if (code == KeyEvent.VK_W) {    //when player presses up arrow key
             up(1);       //calls up method
         }
-        if (code == KeyEvent.VK_DOWN) {  //when player presses down arrow key
+        if (code == KeyEvent.VK_S) {  //when player presses down arrow key
             down(1);     //calls down method
         }
     }
@@ -70,6 +72,7 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
 
     public void keyReleased(KeyEvent e) {
     }
+
 
     public static void main(String[] args) {
         JFrame f = new JFrame();
