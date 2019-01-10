@@ -24,12 +24,13 @@ public class PongPaddlesUser extends JPanel implements ActionListener, KeyListen
         setFocusTraversalKeysEnabled(false);
     }
 
+    //creating graphic for paddle
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D paddle1 = (Graphics2D) g;
         Graphics2D paddle2 = (Graphics2D) g;
-        paddle1.fill(new Rectangle.Double(40, y, 30, 100));   //creating graphic for paddle
-        paddle2.fill(new Rectangle.Double(x, y, 30, 100));
+        paddle1.fill(new Rectangle.Double(40, y, 30, 100));  
+        paddle2.fill(new Rectangle.Double(x, y, 30, 100));  
     }
 
     public void actionPerformed(ActionEvent e) {
