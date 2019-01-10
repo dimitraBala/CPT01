@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.*;
 
-//paddles that is controllable by arrow keys
+//paddles that is controllable by arrow keys and character keys
 //December 28 2018
 //Manchind Singh
 
