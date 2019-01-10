@@ -1,11 +1,5 @@
 /**
  * Paints an object and moves it to the left each time the "LEFT" button is clicked
- *  2 objects for players
- * Differentiate by left side or right
- * Different x and y values for paddles
- * point system
- * https://www.geeksforgeeks.org/multithreading-in-java/
- * https://dzone.com/articles/java-thread-tutorial-creating-threads-and-multithr
  */
 
 import java.awt.*;
