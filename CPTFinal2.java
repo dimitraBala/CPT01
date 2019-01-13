@@ -1,6 +1,3 @@
-package CompSciCPT;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,12 +12,32 @@ import java.awt.geom.Rectangle2D;
 public class CPTFinal2 extends JPanel {
     public static void main(String[] args) {
 
-        JFrame f = new JFrame();
+        JPanel contentPane;
+        contentPane = new JPanel();
+        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
+        contentPane.setBorder(BorderFactory.createEmptyBorder());
+        JLabel pointTextP1, pointTextP2;
+
+        /* a label that is centered and has empty borders */
+        pointTextP1 = new JLabel("SCORE: ");
+        pointTextP1.setFont(new Font("Arial", Font.BOLD, 18));
+        pointTextP1.setBounds(100, 100, 80, 20);
+        contentPane.add(pointTextP1);
+        pointTextP2 = new JLabel("SCORE: ");
+        pointTextP2.setFont(new Font("Arial", Font.BOLD, 18));
+        pointTextP2.setBounds(400, 100, 80, 20);
+        contentPane.add(pointTextP2);
+
+        // Setting the frame 
+        JFrame f = new JFrame("PONG");
         PongPaddlesUserMulti s = new PongPaddlesUserMulti();
-        f.add(s);
+        contentPane.add(s);
+        f.setContentPane(contentPane);
+        f.pack();
         f.setVisible(true);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(600, 600);
+
     }
 }
 
@@ -32,6 +49,10 @@ class PongPaddlesUserMulti extends CPTFinal2 implements ActionListener, KeyListe
 
     int xBall = 0, yBall = 0;   //x and y value for position of ball
     int anglex = 1, angley = 1; //change in speed of ball
+
+    int pointP1 = 0, pointP2 = 0; //point keepers for each player
+
+
 
     Ellipse2D oval = new Ellipse2D.Double();       //ball
     Rectangle2D padR = new Rectangle2D.Double();    //right paddle
@@ -60,10 +81,12 @@ class PongPaddlesUserMulti extends CPTFinal2 implements ActionListener, KeyListe
 
     public void actionPerformed(ActionEvent e) {
         repaint();
-        if (xBall + anglex < 0) {       //when ball is about to go past the left sid of frame
+        if (xBall + anglex < 0) {       //when ball is about to go past the left sidee of frame
             anglex = 1;                 //ball goes right
+            pointP1 += 1;               //Player 1 gets a point
         } else if (xBall + anglex > getWidth() - 50) {  //when ball is about to go past the right side of frame
             anglex = -1;                                //ball goes left
+            pointP2 += 1;               //Player 2 gets a point
         } else if (yBall + angley < 0) {    //when ball is about to go past the top side of frame
             angley = 1;         //ball goes down
         } else if (yBall + angley > getHeight() - 50) { //when ball is about to go past the bottom side of frame
@@ -150,4 +173,3 @@ class PongPaddlesUserMulti extends CPTFinal2 implements ActionListener, KeyListe
     public void keyReleased(KeyEvent e) {
     }
 }
-
