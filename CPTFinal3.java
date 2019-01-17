@@ -1,4 +1,5 @@
 package CompSciCPT;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,21 +14,32 @@ import java.awt.geom.Rectangle2D;
 public class CPTFinal3 extends JPanel {
 
     public static void main(String[] args) {
-        JLabel pointTextP1 = new JLabel("SCORE: ");
-        JLabel pointTextP2= new JLabel("SCORE: ");
+        JLabel Score = new JLabel("SCORE");
+        JLabel pointTextP2 = new JLabel("Player 2: ");
+        JLabel pointTextP1 = new JLabel("Player 1: ");
         JPanel contentPane = new JPanel();
         // Setting the frame
         JFrame f = new JFrame("PONG");
         PongPaddlesUserMultiUsers s = new PongPaddlesUserMultiUsers();
+
         contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
         contentPane.setBorder(BorderFactory.createEmptyBorder());
-        pointTextP1.setFont(new Font("Arial", Font.BOLD, 18));
+
+        Score.setFont(new Font("Arial", Font.BOLD, 24));    //setting up values for JLabel that displays "Score"
+        Score.setForeground(Color.RED);
+        Score.setBounds(100, 100, 80, 20);
+        contentPane.add(Score); //added to JPanel
+
+        pointTextP1.setFont(new Font("Arial", Font.BOLD, 18));  //setting up for JLabel displaying "Player 1"
         pointTextP1.setBounds(100, 100, 80, 20);
         contentPane.add(pointTextP1);
-        pointTextP2.setFont(new Font("Arial", Font.BOLD, 18));
+
+        pointTextP2.setFont(new Font("Arial", Font.BOLD, 18));//setting up for JLabel displaying "Player 2"
+        pointTextP2.setForeground(Color.BLUE);
         pointTextP2.setBounds(100, 100, 80, 20);
         contentPane.add(pointTextP2);
-        JPanel container = new JPanel();
+
+        JPanel container = new JPanel();    //new panel made to contain the JLabels and and object of PongPaddlesUserMultiUsers at once
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
         container.add(contentPane);
         container.add(s);
@@ -46,18 +58,14 @@ class PongPaddlesUserMultiUsers extends CPTFinal3 implements ActionListener, Key
     int yL = 0, velyL = 0; // y value for left side and variable for change in speed/direction
 
     int xBall = 0, yBall = 0;   //x and y value for position of ball
-    int anglex = 1, angley = 1; //change in speed of ball
+    int anglex = 1, angley = 1; //change in speed of ball in x and y direction
 
-    double pointP1 = -0.5, pointP2 = -0.5; //point keepers for each player
-
+    int pointP2 = -1, pointP1 = 0; //point keepers for each player
 
 
     Ellipse2D oval = new Ellipse2D.Double();       //ball
     Rectangle2D padR = new Rectangle2D.Double();    //right paddle
     Rectangle2D padL = new Rectangle2D.Double();    //left paddle
-
-
-
 
 
     public PongPaddlesUserMultiUsers() {
@@ -73,24 +81,38 @@ class PongPaddlesUserMultiUsers extends CPTFinal3 implements ActionListener, Key
         Graphics2D ball = (Graphics2D) g;   //graphics object created for the shapes
         Graphics2D paddle1 = (Graphics2D) g;
         Graphics2D paddle2 = (Graphics2D) g;
+        Graphics2D textP1 = (Graphics2D) g;
+        Graphics2D textP2 = (Graphics2D) g;
+        
+
+        textP1.setFont(new Font("Arial", Font.BOLD, 18));
+        String pointsP1 = Integer.toString(pointP1);
+        textP1.drawString(pointsP1, 0, 297);    //setting the scoreboard for player 1
+
+        textP2.setFont(new Font("Arial", Font.BOLD, 18));
+        textP2.setPaint(Color.BLUE);
+        String pointsP2 = Integer.toString(pointP2);
+        textP2.drawString(pointsP2, 0, 320);    //setting the scoreboard for player 2
+
         oval = new Ellipse2D.Double(xBall, yBall, 50, 50); //position and size of ball
         padR = new Rectangle2D.Double(xR, yR, 30, 100);    //position and size of paddles
         padL = new Rectangle2D.Double(40, yL, 30, 100);
+        g.setColor(Color.RED);
         ball.fill(oval);       //displaying ball
+        g.setColor(Color.BLUE);
         paddle1.fill(padR);     //displaying right paddle
+        g.setColor(Color.BLACK);
         paddle2.fill(padL);     //displaying left paddle
-
-
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)  {
         repaint();
+
         if (xBall + anglex < 0) {       //when ball is about to go past the left side of frame
             anglex = 1;
             //pointP1 += 1;//ball goes right
         } else if (xBall + anglex > getWidth() - 50) {  //when ball is about to go past the right side of frame
             anglex = -1;                                //ball goes left
-            pointP2 += 1;               //Player 2 gets a point
         } else if (yBall + angley < 0) {    //when ball is about to go past the top side of frame
             angley = 1;         //ball goes down
         } else if (yBall + angley > getHeight() - 50) { //when ball is about to go past the bottom side of frame
@@ -98,13 +120,20 @@ class PongPaddlesUserMultiUsers extends CPTFinal3 implements ActionListener, Key
         }
 
 
-        if (xBall==1){
-            pointP1 +=0.5;
+        if (xBall == 1) {       //when player 2 gets ball past player 1
+            pointP2 += 1;     //player 2 gets a point
+            xBall=300;         //resetting ball's position to the middle
+            anglex= -1;     //ball is directed towards the player 1
         }
-        if (xBall==getWidth()-1){
-            pointP2+=0.5;
+        if (xBall==465){    //when player 2 gets ball past player 2
+            pointP1+=1;     //player 1 gets point
+            xBall=200;      //ball's position is reset
+            anglex = +1;    //ball is directed towards player 2
         }
-        System.out.println(pointP1);
+        if (pointP1==1||pointP2==1){
+            t.restart();
+        }
+
 
         xBall = xBall + anglex; //change of x value of ball
         yBall = yBall + angley; //change of y value of ball
@@ -132,6 +161,8 @@ class PongPaddlesUserMultiUsers extends CPTFinal3 implements ActionListener, Key
             angley = -1;
         }
     }
+
+
 
     public void upR(int checkValue) {   //when user clicks up key
         if (checkValue == 1) {
